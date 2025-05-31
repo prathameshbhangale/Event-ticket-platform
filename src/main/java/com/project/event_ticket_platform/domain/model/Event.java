@@ -81,4 +81,20 @@ public class Event {
     public int hashCode() {
         return Objects.hash(id, name, start, end, venue, salesStart, salesEnd, status, createdAt, updatedAt);
     }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", start=" + start +
+                ", end=" + end +
+                ", venue='" + venue + '\'' +
+                ", salesStart=" + salesStart +
+                ", salesEnd=" + salesEnd +
+                ", status=" + status +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }
