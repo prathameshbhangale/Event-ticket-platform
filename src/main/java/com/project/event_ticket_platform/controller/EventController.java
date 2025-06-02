@@ -13,7 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Pageable;
 
+
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -41,6 +44,26 @@ public class EventController {
     ){
         UUID userId = UUID.fromString(jwt.getClaimAsString("sub"));
         CreateEventResponseDto response = eventService.updateEventForOrganizer(userId,eventId,updateEventRequestDto);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<CreateEventResponseDto>> listEvent(
+            @AuthenticationPrincipal Jwt jwt,
+            Pageable pageable
+    ){
+        UUID userId = UUID.fromString(jwt.getClaimAsString("sub"));
+        List<CreateEventResponseDto> response = eventService.listEvents(userId,pageable);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{eventId}")
+    public ResponseEntity<CreateEventResponseDto> getEvent(
+            @AuthenticationPrincipal Jwt jwt,
+            @PathVariable UUID eventId
+    ){
+        UUID userId = UUID.fromString(jwt.getClaimAsString("sub"));
+        CreateEventResponseDto response = eventService.getEventDetails(userId,eventId);
         return ResponseEntity.ok(response);
     }
 }

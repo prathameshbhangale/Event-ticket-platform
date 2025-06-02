@@ -2,12 +2,13 @@ import {  Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { Toaster } from 'react-hot-toast';
 import Home from './pages/HomePage';
+import CreateEvent from './pages/CreateEvent';
 
 // Dummy components for pages (replace with your actual components)
 // const Home = () => <div className="p-4 text-gray-800">Welcome to EventHub!</div>;
 const Events = () => <div className="p-4 text-gray-800">Events Page</div>;
 const MyTickets = () => <div className="p-4 text-gray-800">My Tickets</div>;
-const CreateEvent = () => <div className="p-4 text-gray-800">Create Event</div>;
+// const CreateEvent = () => <div className="p-4 text-gray-800">Create Event</div>;
 const Register = () => <div className="p-4 text-gray-800">Register Page</div>;
 const Login = () => <div className="p-4 text-gray-800">Login Page</div>;
 const Profile = () => <div className="p-4 text-gray-800">User Profile</div>;

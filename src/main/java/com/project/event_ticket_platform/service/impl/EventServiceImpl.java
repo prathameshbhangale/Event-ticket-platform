@@ -16,7 +16,10 @@ import com.project.event_ticket_platform.repository.TicketTypeRepository;
 import com.project.event_ticket_platform.repository.UserRepository;
 import com.project.event_ticket_platform.service.EventService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -29,6 +32,18 @@ public class EventServiceImpl implements EventService {
     private final EventRepository eventRepository;
     private final EventMapper eventMapper;
     private final TicketTypeRepository ticketTypeRepository;
+
+    @Override
+    public List<CreateEventResponseDto> listEvents(UUID oragnizerId, Pageable pagble) {
+        Page<Event> events =  eventRepository.findByOrganizerId(oragnizerId, pagble);
+        List<CreateEventResponseDto> response = events.stream()
+                .map((event)->{
+                    return eventMapper.toDto(event);
+                })
+                .collect(Collectors.toList());
+
+        return response;
+    }
 
     @Override
     public CreateEventResponseDto createEvent(UUID organizerId, CreateEventRequestDto createEventDto) {
@@ -114,5 +129,15 @@ public class EventServiceImpl implements EventService {
         existingEvent.setTicketTypes(ticketTypeList);
         return eventMapper.toDto(eventRepository.save(existingEvent));
 
+    }
+
+    @Override
+    public CreateEventResponseDto getEventDetails(UUID oraganizerId, UUID id) {
+
+        Event event = eventRepository.findById(id).orElseThrow(()->new EventNotFoundException("invalid event id"));
+        if(!oraganizerId.equals(event.getOrganizer().getId())){
+            throw new EventUpdateException("user not allow to access this event");
+        }
+        return eventMapper.toDto(event);
     }
 }

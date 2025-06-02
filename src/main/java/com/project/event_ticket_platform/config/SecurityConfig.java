@@ -17,6 +17,7 @@ public class SecurityConfig {
             HttpSecurity http,
             UserProvisioningFilter userProvisioningFilter) throws Exception {
         http
+                .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/public/**").permitAll()
                         .anyRequest().authenticated())
