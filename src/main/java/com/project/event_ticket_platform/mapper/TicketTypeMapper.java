@@ -2,6 +2,7 @@ package com.project.event_ticket_platform.mapper;
 
 import com.project.event_ticket_platform.domain.dto.CreateTicketTypeRequestDto;
 import com.project.event_ticket_platform.domain.dto.CreateTicketTypeResponseDto;
+import com.project.event_ticket_platform.domain.dto.UpdateTicketTypeRequestDto;
 import com.project.event_ticket_platform.domain.model.TicketType;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -19,4 +20,9 @@ public interface TicketTypeMapper {
     CreateTicketTypeResponseDto toDto(TicketType ticketType);
 
     List<CreateTicketTypeResponseDto> toDtoList(List<TicketType> ticketTypes);
+
+    @Mapping(target = "event", ignore = true)
+    @Mapping(target = "tickets", ignore = true)
+    TicketType toEntity(UpdateTicketTypeRequestDto dto);
+
 }

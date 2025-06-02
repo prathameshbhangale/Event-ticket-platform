@@ -3,6 +3,7 @@ package com.project.event_ticket_platform.controller;
 
 import com.project.event_ticket_platform.domain.dto.CreateEventRequestDto;
 import com.project.event_ticket_platform.domain.dto.CreateEventResponseDto;
+import com.project.event_ticket_platform.domain.dto.UpdateEventRequestDto;
 import com.project.event_ticket_platform.mapper.EventMapper;
 import com.project.event_ticket_platform.service.EventService;
 import jakarta.validation.Valid;
@@ -30,5 +31,16 @@ public class EventController {
         UUID userId = UUID.fromString(jwt.getClaimAsString("sub"));
         CreateEventResponseDto response = eventService.createEvent(userId,createEventRequestDto);
         return new ResponseEntity<>(response,HttpStatus.CREATED);
+    }
+
+    @PostMapping("/{eventId}")
+    public ResponseEntity<CreateEventResponseDto> updateEvent(
+            @AuthenticationPrincipal Jwt jwt,
+            @PathVariable UUID eventId,
+            @Valid @RequestBody UpdateEventRequestDto updateEventRequestDto
+    ){
+        UUID userId = UUID.fromString(jwt.getClaimAsString("sub"));
+        CreateEventResponseDto response = eventService.updateEventForOrganizer(userId,eventId,updateEventRequestDto);
+        return ResponseEntity.ok(response);
     }
 }
