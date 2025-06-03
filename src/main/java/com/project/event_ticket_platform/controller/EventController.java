@@ -66,4 +66,6 @@ public class EventController {
         CreateEventResponseDto response = eventService.getEventDetails(userId,eventId);
         return ResponseEntity.ok(response);
     }
+
+
 }

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { listEvents } from '../apis/connectors/listEvent';
 import { useDispatch } from 'react-redux';
 import { setEventList } from '../slices/EventListSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function EventListPage() {
   const [events, setEvents] = useState([]);
@@ -9,11 +10,12 @@ export default function EventListPage() {
   const [page, setPage] = useState(0);
   const size = 10;
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const fetchEvents = async (page) => {
     setLoading(true);
     try {
-      const data = await listEvents({ page, size });
+      let data = await listEvents({ page, size });
         data = data.map(({ id, name, start, end, venue, status }) => ({
         id,
         name,
@@ -38,6 +40,7 @@ export default function EventListPage() {
 
   const handleEdit = (eventId) => {
     console.log(`Edit event: ${eventId}`);
+    navigate(`/events/edit/${eventId}`);
   };
 
   const handleDelete = (eventId) => {

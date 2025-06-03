@@ -1,30 +1,42 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { apiConnector } from "../apis/apiCaller";
-import { create_event_url } from "../apis/urls.js"
+import { get_event_url, update_event_url } from "../apis/urls";
 import toast from "react-hot-toast";
-import { isLoggedIn, updateToken,getToken,login } from "../config/KeycloakService.js";
+import { isLoggedIn, updateToken, getToken, login } from "../config/KeycloakService";
 
-export default function CreateEvent() {
+export default function EditEvent() {
+  const { id } = useParams();
   const navigate = useNavigate();
+  const [eventData, setEventData] = useState(null);
 
-  const [eventData, setEventData] = useState({
-    name: "",
-    start: "",
-    end: "",
-    venue: "",
-    salesStart: "",
-    salesEnd: "",
-    status: "PUBLISHED",
-    ticketTypes: [
-      {
-        name: "",
-        price: "",
-        description: "",
-        totalAvailable: "",
-      },
-    ],
-  });
+  useEffect(() => {
+    if (!isLoggedIn()) {
+      login();
+      return;
+    }
+
+    const fetchEvent = async () => {
+      try {
+        await new Promise((resolve) => updateToken(resolve));
+        const token = getToken();
+
+        const response = await apiConnector(
+          "GET",
+          `${get_event_url}/${id}`,
+          null,
+          { Authorization: `Bearer ${token}` }
+        );
+
+        setEventData(response.data);
+      } catch (err) {
+        console.error("Failed to load event:", err);
+        toast.error("Failed to load event.");
+      }
+    };
+
+    fetchEvent();
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,10 +46,15 @@ export default function CreateEvent() {
   const handleTicketChange = (index, e) => {
     const { name, value } = e.target;
     const updatedTickets = [...eventData.ticketTypes];
-    updatedTickets[index][name] = name === "price" || name === "totalAvailable"
-      ? Number(value)
-      : value;
+    updatedTickets[index][name] = name === "price" || name === "totalAvailable" ? Number(value) : value;
     setEventData((prev) => ({ ...prev, ticketTypes: updatedTickets }));
+  };
+
+  const addTicketType = () => {
+    setEventData((prev) => ({
+      ...prev,
+      ticketTypes: [...prev.ticketTypes, { name: "", price: "", description: "", totalAvailable: "" }],
+    }));
   };
 
   const removeTicketType = (index) => {
@@ -45,66 +62,46 @@ export default function CreateEvent() {
       toast.error("At least one ticket type is required.");
       return;
     }
-
     setEventData((prev) => ({
       ...prev,
       ticketTypes: prev.ticketTypes.filter((_, i) => i !== index),
     }));
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const addTicketType = () => {
-    setEventData((prev) => ({
-      ...prev,
-      ticketTypes: [
-        ...prev.ticketTypes,
-        { name: "", price: "", description: "", totalAvailable: "" },
-      ],
-    }));
+    try {
+      await new Promise((resolve) => updateToken(resolve));
+      const token = getToken();
+
+      const response = await apiConnector(
+        "POST",
+        `${update_event_url}/${id}`,
+        eventData,
+        {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        }
+      );
+
+      toast.success("Event updated successfully!");
+      navigate("/events");
+    } catch (err) {
+      console.error("Error updating event:", err);
+      toast.error("Failed to update event.");
+    }
   };
 
-  const handleSubmit = async (e) => {
-  e.preventDefault();
-
-  if (!isLoggedIn()) {
-    login();  // Redirect to login if not logged in
-    return;
+  if (!eventData) {
+    return <div className="p-10 text-center text-gray-600">Loading event...</div>;
   }
-
-  try {
-    // This will refresh token only if expiring in next 70 seconds
-    await new Promise((resolve, reject) => {
-      updateToken(() => resolve());
-    });
-
-    const token = getToken();
-
-    const res = await apiConnector(
-      "POST",
-      create_event_url,
-      eventData,
-      {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      }
-    );
-
-    console.log("Event created:", res.data);
-    toast.success("Event created successfully");
-    navigate("/events");
-  } catch (err) {
-    console.error("Error creating event:", err);
-    alert("Failed to create event. Check console for details.");
-  }
-};
-
 
   return (
     <div className="min-h-screen bg-gray-100 flex justify-center items-start py-10 px-4">
       <div className="w-full max-w-3xl bg-white rounded-2xl p-8 shadow-md">
-        <h1 className="text-3xl font-bold mb-6 text-gray-800 text-center">Create Event</h1>
+        <h1 className="text-3xl font-bold mb-6 text-gray-800 text-center">Edit Event</h1>
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Event fields */}
           {[
             { label: "Event Name", name: "name", type: "text" },
             { label: "Start Time", name: "start", type: "datetime-local" },
@@ -126,7 +123,6 @@ export default function CreateEvent() {
             </div>
           ))}
 
-          {/* Status field */}
           <div>
             <label className="block text-gray-700 mb-1">Status</label>
             <select
@@ -143,7 +139,6 @@ export default function CreateEvent() {
             </select>
           </div>
 
-          {/* Ticket Types */}
           {eventData.ticketTypes.map((ticket, index) => (
             <div
               key={index}
@@ -156,7 +151,6 @@ export default function CreateEvent() {
               >
                 ✕
               </button>
-
               <input
                 type="text"
                 name="name"
@@ -194,21 +188,20 @@ export default function CreateEvent() {
               />
             </div>
           ))}
+
           <button
-              type="button"
-              onClick={addTicketType}
-              className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition"
-            >
-              + Add Ticket Type
-            </button>
+            type="button"
+            onClick={addTicketType}
+            className="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300 transition"
+          >
+            + Add Ticket Type
+          </button>
 
-
-          {/* Submit */}
           <button
             type="submit"
             className="w-full bg-gray-800 text-white py-2 rounded-lg hover:bg-gray-700 transition"
           >
-            Create Event
+            Update Event
           </button>
         </form>
       </div>
