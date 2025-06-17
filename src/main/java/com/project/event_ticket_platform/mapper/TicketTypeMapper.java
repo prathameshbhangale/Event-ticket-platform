@@ -2,15 +2,17 @@ package com.project.event_ticket_platform.mapper;
 
 import com.project.event_ticket_platform.domain.dto.CreateTicketTypeRequestDto;
 import com.project.event_ticket_platform.domain.dto.CreateTicketTypeResponseDto;
+import com.project.event_ticket_platform.domain.dto.GetPublishedEventDetailsTicketTypesResponseDto;
 import com.project.event_ticket_platform.domain.dto.UpdateTicketTypeRequestDto;
 import com.project.event_ticket_platform.domain.model.TicketType;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Mapper(componentModel = "spring", imports = { LocalDateTime.class })
+@Mapper(componentModel = "spring", imports = { LocalDateTime.class }, unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface TicketTypeMapper {
 
     @Mapping(target = "event", ignore = true)
@@ -25,4 +27,6 @@ public interface TicketTypeMapper {
     @Mapping(target = "tickets", ignore = true)
     TicketType toEntity(UpdateTicketTypeRequestDto dto);
 
+    @Mapping(target = "totalAvailable", ignore = true)
+    GetPublishedEventDetailsTicketTypesResponseDto toPublishedEventDto(TicketType ticketType);
 }

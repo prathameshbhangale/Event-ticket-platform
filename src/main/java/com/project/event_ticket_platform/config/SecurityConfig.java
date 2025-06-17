@@ -3,6 +3,7 @@ package com.project.event_ticket_platform.config;
 import com.project.event_ticket_platform.filter.UserProvisioningFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -15,19 +16,23 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(
             HttpSecurity http,
-            UserProvisioningFilter userProvisioningFilter) throws Exception {
+            UserProvisioningFilter userProvisioningFilter,
+            JwtAuthenticationConverter jwtAuthenticationConverter) throws Exception {
         http
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()  // preflight
                         .requestMatchers("/public/**").permitAll()
+                        .requestMatchers("/api/v1/published-events").permitAll()
                         .anyRequest().authenticated())
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .oauth2ResourceServer(oauth2 ->
-                        oauth2.jwt(
-                                Customizer.withDefaults()
-                        ))
+                        oauth2.jwt( jwt ->
+                                jwt.jwtAuthenticationConverter(jwtAuthenticationConverter)
+                        )
+                )
                 .addFilterAfter(userProvisioningFilter, BearerTokenAuthenticationFilter.class);
 
         return http.build();

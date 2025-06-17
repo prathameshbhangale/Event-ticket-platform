@@ -3,12 +3,15 @@ package com.project.event_ticket_platform.service;
 
 import com.project.event_ticket_platform.domain.dto.CreateEventRequestDto;
 import com.project.event_ticket_platform.domain.dto.CreateEventResponseDto;
+import com.project.event_ticket_platform.domain.dto.GetPublishedEventDetailsResponseDto;
 import com.project.event_ticket_platform.domain.dto.UpdateEventRequestDto;
+import com.project.event_ticket_platform.domain.model.Event;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -20,4 +23,6 @@ public interface EventService {
     void deleteEvent(UUID oraganizerId, UUID id);
     Page<CreateEventResponseDto> listPublishedEvents(Pageable pageable);
     Page<CreateEventResponseDto> searchPublishedEvents(String q,Pageable pageable);
+
+    GetPublishedEventDetailsResponseDto getPublishedEvent(UUID eventId);
 }

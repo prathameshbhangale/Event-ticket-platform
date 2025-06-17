@@ -1,2 +1,53 @@
-/mvnw text eol=lf
-*.cmd text eol=crlf
+# Maven target directory
+/target/
+
+# Gradle build directory
+/build/
+
+# IntelliJ IDEA
+/.idea/
+/*.iml
+/*.iws
+/out/
+
+# Eclipse
+/.classpath
+/.project
+/.settings/
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Spring Boot specific
+spring-boot-*.jar
+
+# Temporary files
+*.tmp
+*.temp
+
+# Application properties (optional: if you want to exclude sensitive config files)
+/src/main/resources/application-*.properties
+/src/main/resources/application-*.yml
+
+# Others
+*.class
+*.jar
+*.war
+*.ear
+
+# Ignore environment files
+.env
+
+# Ignore generated files
+/generated/
+
+# IntelliJ specific
+*.iml
+.idea/

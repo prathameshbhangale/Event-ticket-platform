@@ -1,9 +1,6 @@
 package com.project.event_ticket_platform.service.impl;
 
-import com.project.event_ticket_platform.domain.dto.CreateEventRequestDto;
-import com.project.event_ticket_platform.domain.dto.CreateEventResponseDto;
-import com.project.event_ticket_platform.domain.dto.UpdateEventRequestDto;
-import com.project.event_ticket_platform.domain.dto.UpdateTicketTypeRequestDto;
+import com.project.event_ticket_platform.domain.dto.*;
 import com.project.event_ticket_platform.domain.enums.EventStatusEnum;
 import com.project.event_ticket_platform.domain.model.Event;
 import com.project.event_ticket_platform.domain.model.TicketType;
@@ -166,5 +163,11 @@ public class EventServiceImpl implements EventService {
                 .searchEvents(q,pageable)
                 .map(event -> eventMapper.toDto(event));
         return page;
+    }
+
+    @Override
+    public GetPublishedEventDetailsResponseDto getPublishedEvent(UUID eventId) {
+        Event event = eventRepository.findByIdAndStatus(eventId,EventStatusEnum.PUBLISHED).orElseThrow( ()-> new EventNotFoundException("event not found; check event id") );
+        return eventMapper.toPublishedEventDto(event);
     }
 }
