@@ -63,10 +63,13 @@ public class QrCodeServiceImpl implements QrCodeService {
             QrCode qrCode = new QrCode();
             qrCode.setId(uniqueId);
             qrCode.setStatus(QrCodeStatusEnum.ACTIVE);
+            log.error("Generated QR Code Image (Base64): {}", qrCodeImage); // Log the base64 string
+            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n");
             qrCode.setValue(qrCodeImage);
             qrCode.setTicket(ticket);
 
-            return qrCodeRepository.saveAndFlush(qrCode);
+            QrCode q= qrCodeRepository.saveAndFlush(qrCode);
+            return q;
         }catch (IOException | WriterException ex){
             throw new QrCodeGenerationException("Unabble to create QR CODE ",ex);
         }

@@ -1,6 +1,7 @@
 package com.project.event_ticket_platform.service.impl;
 
 import com.project.event_ticket_platform.domain.enums.TicketStatusEnum;
+import com.project.event_ticket_platform.domain.model.QrCode;
 import com.project.event_ticket_platform.domain.model.Ticket;
 import com.project.event_ticket_platform.domain.model.TicketType;
 import com.project.event_ticket_platform.domain.model.User;
@@ -50,7 +51,7 @@ public class TicketTypeServiceImpl implements TicketTypeService {
         ticket.setPurchaser(user);
         Ticket savedTicket = ticketRepository.save(ticket);
 
-        qrCodeService.generateQrCode(savedTicket);
+        QrCode q = qrCodeService.generateQrCode(savedTicket);
         return savedTicket;
     }
 }

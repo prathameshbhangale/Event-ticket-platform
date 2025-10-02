@@ -27,9 +27,11 @@ public class QrCode {
     @Enumerated(EnumType.STRING)
     private QrCodeStatusEnum status;
 
-    @Lob
-    @Column(name = "value",columnDefinition = "TEXT", nullable = false)
-    private String value;
+//    @Lob
+//    @Column(name = "value", columnDefinition = "TEXT", nullable = false)
+//    private String value;
+@Column(name = "value", length = 1000, nullable = false)
+private String value;
 
     @CreatedDate
     @Column(name = "created_at")
@@ -43,11 +45,15 @@ public class QrCode {
     @JoinColumn(name = "ticket_id")
     private Ticket ticket;
 
+//    public String getValue() { return value; }
+//    public void setValue(String value) { this.value = value; }
+
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         QrCode qrCode = (QrCode) o;
-        return Objects.equals(id, qrCode.id) && status == qrCode.status && Objects.equals(value, qrCode.value) && Objects.equals(createdAt, qrCode.createdAt) && Objects.equals(updatedAt, qrCode.updatedAt);
+        return Objects.equals(id, qrCode.id) && status == qrCode.status && Objects.equals(createdAt, qrCode.createdAt) && Objects.equals(updatedAt, qrCode.updatedAt);
     }
 
     @Override
