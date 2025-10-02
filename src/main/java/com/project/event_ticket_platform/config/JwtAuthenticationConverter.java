@@ -1,6 +1,5 @@
 package com.project.event_ticket_platform.config;
 
-
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,23 +18,21 @@ public class JwtAuthenticationConverter implements Converter<Jwt, JwtAuthenticat
 
     @Override
     public JwtAuthenticationToken convert(Jwt source) {
-        Collection<GrantedAuthority> authorities = getAuthorities(source);
-        return new JwtAuthenticationToken(source,authorities);
+        Collection<GrantedAuthority> authorities = extractAuthorities(source);
+        return new JwtAuthenticationToken(source, authorities);
     }
 
-    private Collection<GrantedAuthority> getAuthorities(Jwt jwt){
+    private Collection<GrantedAuthority> extractAuthorities(Jwt jwt) {
         Map<String, Object> realmAccess = jwt.getClaim("realm_access");
 
-        if(null == realmAccess || !realmAccess.containsKey("roles")) {
+        if (realmAccess == null || !realmAccess.containsKey("roles")) {
             return Collections.emptyList();
         }
 
-        @SuppressWarnings("unchecked")
-        List<String> roles = (List<String>)realmAccess.get("roles");
+        List<String> roles = (List<String>) realmAccess.get("roles");
 
         return roles.stream()
-                .filter(role -> role.startsWith("ROLE_"))
-                .map(SimpleGrantedAuthority::new)
+                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
                 .collect(Collectors.toList());
     }
 }

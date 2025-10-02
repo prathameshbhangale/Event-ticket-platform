@@ -27,6 +27,7 @@ public class QrCode {
     @Enumerated(EnumType.STRING)
     private QrCodeStatusEnum status;
 
+    @Lob
     @Column(name = "value",columnDefinition = "TEXT", nullable = false)
     private String value;
 

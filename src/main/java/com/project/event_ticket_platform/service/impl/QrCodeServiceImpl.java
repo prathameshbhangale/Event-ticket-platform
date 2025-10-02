@@ -10,10 +10,12 @@ import com.project.event_ticket_platform.domain.enums.QrCodeStatusEnum;
 import com.project.event_ticket_platform.domain.model.QrCode;
 import com.project.event_ticket_platform.domain.model.Ticket;
 import com.project.event_ticket_platform.exceptions.QrCodeGenerationException;
+import com.project.event_ticket_platform.exceptions.QrCodeNotFoundException;
 import com.project.event_ticket_platform.repository.QrCodeRepository;
 import com.project.event_ticket_platform.service.QrCodeService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
@@ -26,6 +28,7 @@ import java.util.UUID;
 
 @Data
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class QrCodeServiceImpl implements QrCodeService {
 
@@ -42,7 +45,6 @@ public class QrCodeServiceImpl implements QrCodeService {
         );
         BufferedImage qrCodeImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
 
-//        try with resourses / closable
         try(ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             ImageIO.write(qrCodeImage, "PNG", baos);
             byte[] imageBytes = baos.toByteArray();
@@ -70,4 +72,30 @@ public class QrCodeServiceImpl implements QrCodeService {
         }
 
     }
+
+    @Override
+    public byte[] getQrCodeImageForUserAndTicket(UUID userId, UUID ticketId) {
+        QrCode qrCode = qrCodeRepository.findByTicketIdAndTicketPurchaserId(ticketId, userId)
+                .orElseThrow(QrCodeNotFoundException::new);
+
+        try {
+            return Base64.getDecoder().decode(qrCode.getValue());
+        } catch(Exception ex) {
+            log.error("Invalid base64 QR Code for ticket ID: {}", ticketId, ex);
+            throw new QrCodeNotFoundException();
+        }
+    }
+
+    @Override
+    public String getQrCodeBase64( UUID userId, UUID ticketId) {
+        QrCode qrCode = qrCodeRepository.findByTicketIdAndTicketPurchaserId(ticketId, userId)
+                .orElseThrow(QrCodeNotFoundException::new);
+        try {
+            return qrCode.getValue();
+        } catch(Exception ex) {
+            log.error("Invalid base64 QR Code for ticket ID: {}", ticketId, ex);
+            throw new QrCodeNotFoundException();
+        }
+    }
+
 }
