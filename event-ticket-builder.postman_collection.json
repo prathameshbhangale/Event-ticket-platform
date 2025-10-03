@@ -1,0 +1,995 @@
+{
+	"info": {
+		"_postman_id": "234ec076-f2d1-4c1c-b5a9-dfc8fda202a6",
+		"name": "event-ticket-builder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35174364",
+		"_collection_link": "https://form-builder-website.postman.co/workspace/form-builder-website-Workspace~f44a36d0-ea17-4c34-a6e2-7a6cd941808e/collection/35174364-234ec076-f2d1-4c1c-b5a9-dfc8fda202a6?action=share&source=collection_link&creator=35174364"
+	},
+	"item": [
+		{
+			"name": "keycloak",
+			"item": [
+				{
+					"name": "get token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "client_id",
+									"value": "event-ticket-platform-app",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "28uT6AzbcfNEv8EAyGIcUYFGmF4qfkDK",
+									"type": "text"
+								},
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "pratham",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "password",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/realms/event-ticket-platform/protocol/openid-connect/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"realms",
+								"event-ticket-platform",
+								"protocol",
+								"openid-connect",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "update event",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJTVXVRaUp0TExOTzRiZG9zLXRfS2o3OGxRb2tHbDFiRVh2ajh6QUUzeGpVIn0.eyJleHAiOjE3NDg4NTM2MTYsImlhdCI6MTc0ODg1MjQxNiwianRpIjoiOTEyN2M4NDMtOWQ0Yy00YWZmLTlhZmItN2FhMWU4MTFiZWI3IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNDZjZmEyNjctMzMwMy00NDliLTk0YTUtOTBlODY0MzIzYzIyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZXZlbnQtdGlja2V0LXBsYXRmb3JtLWFwcCIsInNlc3Npb25fc3RhdGUiOiI0MDJmMmJhMS1hZjdjLTRkMTMtYTE4OC03NWZhNThlMWQwMmYiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiNDAyZjJiYTEtYWY3Yy00ZDEzLWExODgtNzVmYTU4ZTFkMDJmIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJQcmF0aGFtZXNoIEJoYW5nYWxlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicHJhdGhhbSIsImdpdmVuX25hbWUiOiJQcmF0aGFtZXNoIiwiZmFtaWx5X25hbWUiOiJCaGFuZ2FsZSIsImVtYWlsIjoiYmhhbmdhbGVwcmF0aGFtZXNoNzQ0QGdtYWlsLmNvbSJ9.mCAeuhEfle1GvddAhIJQBEr36xLR07WPDR9tdIk6Jl05tLFFFWLw_iwvfz7QbZah1JMVpaZGnQ1WIK7omHKlyjCVQClmzGXeOjo_WVd7UB1ijsY1qcSBpQfh-EzAnnLpF3zmX5NYM5G9zSpOYJzdOZ_rgZgF2EzHnTEe8Ul25Cmc6kTWBC8ANplS3ztgKFGK92A0S-vmTPmxe_wuqe4A2Mv3BJzr4BBKa5XHOI5o4VfuJiXmxyPFTE_-TkSLRoWj0qG1Vmkyql_wg-gtNCbzPxtGjMXC-4GAZTL7dqqei7_n8iC5D_d1LlY79O4SXffZfISVRXhwAIRr2EYHDBW-wg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": \"aa33a109-0972-4648-8e34-797a7f35e687\",\r\n  \"name\": \"International Tech Conference 2025\",\r\n  \"start\": \"2025-06-11T10:00:00\",\r\n  \"end\": \"2025-06-11T18:00:00\",\r\n  \"venue\": \"Nehru Centre, Mumbai\",\r\n  \"salesStart\": \"2025-05-25T09:00:00\",\r\n  \"salesEnd\": \"2025-06-10T21:00:00\",\r\n  \"status\": \"DRAFT\",\r\n  \"ticketTypes\": [\r\n    {\r\n      \"id\": \"57425e76-216e-4842-bb4c-278c86a787cf\",\r\n      \"name\": \"Standard Pass\",\r\n      \"price\": 599.99,\r\n      \"description\": \"Includes access to sessions and coffee breaks\",\r\n      \"totalAvailable\": 250\r\n    },\r\n    {\r\n      \"name\": \"Student Entry\",\r\n      \"price\": 199.99,\r\n      \"description\": \"Discounted access for students (valid ID required)\",\r\n      \"totalAvailable\": 100\r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE}}/api/v1/events/aa33a109-0972-4648-8e34-797a7f35e687",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"events",
+						"aa33a109-0972-4648-8e34-797a7f35e687"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "test server",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"aa33a109-0972-4648-8e34-797a7f35e687\",\r\n  \"name\": \"International Tech Conference 2025\",\r\n  \"start\": \"2025-06-11T10:00:00\",\r\n  \"end\": \"2025-06-11T18:00:00\",\r\n  \"venue\": \"Nehru Centre, Mumbai\",\r\n  \"salesStart\": \"2025-05-25T09:00:00\",\r\n  \"salesEnd\": \"2025-06-10T21:00:00\",\r\n  \"status\": \"DRAFT\",\r\n  \"ticketTypes\": [\r\n    {\r\n      \"id\": \"57425e76-216e-4842-bb4c-278c86a787cf\",\r\n      \"name\": \"Standard Pass\",\r\n      \"price\": 599.99,\r\n      \"description\": \"Includes access to sessions and coffee breaks\",\r\n      \"totalAvailable\": 250\r\n    },\r\n    {\r\n      \"name\": \"Student Entry\",\r\n      \"price\": 199.99,\r\n      \"description\": \"Discounted access for students (valid ID required)\",\r\n      \"totalAvailable\": 100\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/api/v1/events/aa33a109-0972-4648-8e34-797a7f35e687",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events",
+								"aa33a109-0972-4648-8e34-797a7f35e687"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 02 Jun 2025 08:33:14 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"aa33a109-0972-4648-8e34-797a7f35e687\",\n    \"name\": \"International Tech Conference 2025\",\n    \"start\": \"2025-06-11T10:00:00\",\n    \"end\": \"2025-06-11T18:00:00\",\n    \"venue\": \"Nehru Centre, Mumbai\",\n    \"salesStart\": \"2025-05-25T09:00:00\",\n    \"salesEnd\": \"2025-06-10T21:00:00\",\n    \"status\": \"DRAFT\",\n    \"ticketTypes\": [\n        {\n            \"id\": \"57425e76-216e-4842-bb4c-278c86a787cf\",\n            \"name\": \"Standard Pass\",\n            \"price\": 599.99,\n            \"description\": \"Includes access to sessions and coffee breaks\",\n            \"totalAvailable\": 250,\n            \"createdAt\": null,\n            \"updatedAt\": \"2025-06-02T14:03:14.4803656\"\n        },\n        {\n            \"id\": \"f0ef4b59-fde3-4603-a0ce-88507d57cb0b\",\n            \"name\": \"Student Entry\",\n            \"price\": 199.99,\n            \"description\": \"Discounted access for students (valid ID required)\",\n            \"totalAvailable\": 100,\n            \"createdAt\": \"2025-06-02T14:03:14.3783437\",\n            \"updatedAt\": \"2025-06-02T14:03:14.3783437\"\n        }\n    ],\n    \"createdAt\": \"2025-06-02T13:45:20.447371\",\n    \"updatedAt\": \"2025-06-02T14:03:14.4601836\"\n}"
+				}
+			]
+		},
+		{
+			"name": "create event with ticket types",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJTVXVRaUp0TExOTzRiZG9zLXRfS2o3OGxRb2tHbDFiRVh2ajh6QUUzeGpVIn0.eyJleHAiOjE3NDg4NTMxMjYsImlhdCI6MTc0ODg1MTkyNiwianRpIjoiMzIzMzU2NjMtNjNlMC00M2Y5LWE0ZDUtOWIzNDA5OTZkNzRmIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNDZjZmEyNjctMzMwMy00NDliLTk0YTUtOTBlODY0MzIzYzIyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZXZlbnQtdGlja2V0LXBsYXRmb3JtLWFwcCIsInNlc3Npb25fc3RhdGUiOiJlZTRkZGQwZi1hNWYxLTRlOGQtODBjZi1jMDUxNjRkMGJiNmIiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiZWU0ZGRkMGYtYTVmMS00ZThkLTgwY2YtYzA1MTY0ZDBiYjZiIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJQcmF0aGFtZXNoIEJoYW5nYWxlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicHJhdGhhbSIsImdpdmVuX25hbWUiOiJQcmF0aGFtZXNoIiwiZmFtaWx5X25hbWUiOiJCaGFuZ2FsZSIsImVtYWlsIjoiYmhhbmdhbGVwcmF0aGFtZXNoNzQ0QGdtYWlsLmNvbSJ9.Srk37TOCxab5FKi3TDDlLaRbQoHYQ2CdzosAlf8XCd-R-u6EZaZGoRkIX-HpfekQ5xAWfJUZcrJecs0J7TEUctF5j_2_Xr746F83BJ2yGbe5umS8dzgIVOXER600dA6bGU3l05Sj-8JVh0GhRqgDSt_CihFUVIgQTHTuJSjQ54IqWgHsRGOZzvPaeoVXdxFpl_rb96fs8jD0v9egxSqcRDRE18UDt37H18oEjFCkgLXlOrdmJ5Jy_tPq5-mzFFSRDEDIA2w7jEbJ5sqmiCrdcQQ_03bLZmUktADRIzQhKq8zwQ9LSW4ezx9zceVwKdwIYqjYDlhZCGCdMX55glfEwg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"testing for Conference 2025\",\r\n  \"start\": \"2025-06-10T09:00:00\",\r\n  \"end\": \"2025-06-10T17:00:00\",\r\n  \"venue\": \"International Convention Center, Mumbai\",\r\n  \"salesStart\": \"2025-05-20T08:00:00\",\r\n  \"salesEnd\": \"2025-06-09T23:00:00\",\r\n  \"status\": \"PUBLISHED\",\r\n  \"ticketTypes\": [\r\n    {\r\n      \"name\": \"General Admission\",\r\n      \"price\": 499.99,\r\n      \"description\": \"Access to all sessions and lunch\",\r\n      \"totalAvailable\": 200\r\n    },\r\n    {\r\n      \"name\": \"VIP Pass\",\r\n      \"price\": 1299.99,\r\n      \"description\": \"Includes front row seating, backstage access, and swag bag\",\r\n      \"totalAvailable\": 50\r\n    }\r\n  ]\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE}}/api/v1/events",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"events"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"testing for Conference 2025\",\r\n  \"start\": \"2025-06-10T09:00:00\",\r\n  \"end\": \"2025-06-10T17:00:00\",\r\n  \"venue\": \"International Convention Center, Mumbai\",\r\n  \"salesStart\": \"2025-05-20T08:00:00\",\r\n  \"salesEnd\": \"2025-06-09T23:00:00\",\r\n  \"status\": \"PUBLISHED\",\r\n  \"ticketTypes\": [\r\n    {\r\n      \"name\": \"General Admission\",\r\n      \"price\": 499.99,\r\n      \"description\": \"Access to all sessions and lunch\",\r\n      \"totalAvailable\": 200\r\n    },\r\n    {\r\n      \"name\": \"VIP Pass\",\r\n      \"price\": 1299.99,\r\n      \"description\": \"Includes front row seating, backstage access, and swag bag\",\r\n      \"totalAvailable\": 50\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE}}/api/v1/events",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 02 Jun 2025 08:15:20 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"aa33a109-0972-4648-8e34-797a7f35e687\",\n    \"name\": \"testing for Conference 2025\",\n    \"start\": \"2025-06-10T09:00:00\",\n    \"end\": \"2025-06-10T17:00:00\",\n    \"venue\": \"International Convention Center, Mumbai\",\n    \"salesStart\": \"2025-05-20T08:00:00\",\n    \"salesEnd\": \"2025-06-09T23:00:00\",\n    \"status\": \"PUBLISHED\",\n    \"ticketTypes\": [\n        {\n            \"id\": \"57425e76-216e-4842-bb4c-278c86a787cf\",\n            \"name\": \"General Admission\",\n            \"price\": 499.99,\n            \"description\": \"Access to all sessions and lunch\",\n            \"totalAvailable\": 200,\n            \"createdAt\": \"2025-06-02T13:45:20.4855782\",\n            \"updatedAt\": \"2025-06-02T13:45:20.4855782\"\n        },\n        {\n            \"id\": \"5009b716-0c66-445d-a10b-8d2e3258b687\",\n            \"name\": \"VIP Pass\",\n            \"price\": 1299.99,\n            \"description\": \"Includes front row seating, backstage access, and swag bag\",\n            \"totalAvailable\": 50,\n            \"createdAt\": \"2025-06-02T13:45:20.4935895\",\n            \"updatedAt\": \"2025-06-02T13:45:20.4935895\"\n        }\n    ],\n    \"createdAt\": \"2025-06-02T13:45:20.4473714\",\n    \"updatedAt\": \"2025-06-02T13:45:20.4473714\"\n}"
+				}
+			]
+		},
+		{
+			"name": "list events",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJTVXVRaUp0TExOTzRiZG9zLXRfS2o3OGxRb2tHbDFiRVh2ajh6QUUzeGpVIn0.eyJleHAiOjE3NDg4NjkwNjcsImlhdCI6MTc0ODg2Nzg2NywianRpIjoiMGM0ZGE1NTgtN2VkNC00YTM2LWJiZjAtZjllZTgyYWY2ZjBmIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNDZjZmEyNjctMzMwMy00NDliLTk0YTUtOTBlODY0MzIzYzIyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZXZlbnQtdGlja2V0LXBsYXRmb3JtLWFwcCIsInNlc3Npb25fc3RhdGUiOiJmMDQyMmJlMC05YzljLTRjZjYtODRhNy1hNmFiNDhhNzRkMDgiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiZjA0MjJiZTAtOWM5Yy00Y2Y2LTg0YTctYTZhYjQ4YTc0ZDA4IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJQcmF0aGFtZXNoIEJoYW5nYWxlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicHJhdGhhbSIsImdpdmVuX25hbWUiOiJQcmF0aGFtZXNoIiwiZmFtaWx5X25hbWUiOiJCaGFuZ2FsZSIsImVtYWlsIjoiYmhhbmdhbGVwcmF0aGFtZXNoNzQ0QGdtYWlsLmNvbSJ9.LRxWRIJg4FEGKfuqB8Ap3DkKUfGa34NBhCMLPNboNYCnvigWxq4Q7t7JyMhmR_YTsPS4dUqZo5FDP37bcidsktveJxk-Gdufse3wS7NB2CeO9wCQis_sZnOar-k67_owrr2F6P_X5vLfUXyZV9dXBfb5rRuiYKDyst8FPW1jZ_GRUQQB1KNMgwE0Rj8EOUJvv6pgotWBJ2yaKMXWx8NMvMM3ntAfXjRZ2qndvvjXW2pst3tWMbpbcMr_BDcvytpqqTTAGmO_d5tkREEb96G1TqygsSdyKkcdThb0bcXeYtkctrV_awJ4dW2125ib9wusgHJpnxseEgv-KLaBmJlC8w",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{BASE}}/api/v1/events?page=0&size=2&sort=name,asc",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"events"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "2"
+						},
+						{
+							"key": "sort",
+							"value": "name,asc"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE}}/api/v1/events?page=0&size=2&sort=name,asc",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								},
+								{
+									"key": "sort",
+									"value": "name,asc"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 02 Jun 2025 12:41:53 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"aa33a109-0972-4648-8e34-797a7f35e687\",\n        \"name\": \"International Tech Conference 2025\",\n        \"start\": \"2025-06-11T10:00:00\",\n        \"end\": \"2025-06-11T18:00:00\",\n        \"venue\": \"Nehru Centre, Mumbai\",\n        \"salesStart\": \"2025-05-25T09:00:00\",\n        \"salesEnd\": \"2025-06-10T21:00:00\",\n        \"status\": \"DRAFT\",\n        \"ticketTypes\": [\n            {\n                \"id\": \"5009b716-0c66-445d-a10b-8d2e3258b687\",\n                \"name\": \"VIP Pass\",\n                \"price\": 1299.99,\n                \"description\": \"Includes front row seating, backstage access, and swag bag\",\n                \"totalAvailable\": 50,\n                \"createdAt\": \"2025-06-02T13:45:20.49359\",\n                \"updatedAt\": \"2025-06-02T13:45:20.49359\"\n            },\n            {\n                \"id\": \"f0ef4b59-fde3-4603-a0ce-88507d57cb0b\",\n                \"name\": \"Student Entry\",\n                \"price\": 199.99,\n                \"description\": \"Discounted access for students (valid ID required)\",\n                \"totalAvailable\": 100,\n                \"createdAt\": \"2025-06-02T14:03:14.378344\",\n                \"updatedAt\": \"2025-06-02T14:03:14.378344\"\n            }\n        ],\n        \"createdAt\": \"2025-06-02T13:45:20.447371\",\n        \"updatedAt\": \"2025-06-02T14:03:14.460184\"\n    },\n    {\n        \"id\": \"806588b3-6b94-433d-84e0-754f0ce87c94\",\n        \"name\": \"Tech Conference 2025\",\n        \"start\": \"2025-06-10T09:00:00\",\n        \"end\": \"2025-06-10T17:00:00\",\n        \"venue\": \"International Convention Center, Mumbai\",\n        \"salesStart\": \"2025-05-20T08:00:00\",\n        \"salesEnd\": \"2025-06-09T23:00:00\",\n        \"status\": \"PUBLISHED\",\n        \"ticketTypes\": [\n            {\n                \"id\": \"805a0c22-b7fb-47d7-850b-da4f05a43a85\",\n                \"name\": \"General Admission\",\n                \"price\": 499.99,\n                \"description\": \"Access to all sessions and lunch\",\n                \"totalAvailable\": 200,\n                \"createdAt\": \"2025-05-31T17:45:20.815734\",\n                \"updatedAt\": \"2025-05-31T17:45:20.815734\"\n            },\n            {\n                \"id\": \"ad763c2e-b7ed-4c95-ad1f-6c195667f33e\",\n                \"name\": \"VIP Pass\",\n                \"price\": 1299.99,\n                \"description\": \"Includes front row seating, backstage access, and swag bag\",\n                \"totalAvailable\": 50,\n                \"createdAt\": \"2025-05-31T17:45:20.824751\",\n                \"updatedAt\": \"2025-05-31T17:45:20.824751\"\n            }\n        ],\n        \"createdAt\": \"2025-05-31T17:45:20.72872\",\n        \"updatedAt\": \"2025-05-31T17:45:20.72872\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "get event by id",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJTVXVRaUp0TExOTzRiZG9zLXRfS2o3OGxRb2tHbDFiRVh2ajh6QUUzeGpVIn0.eyJleHAiOjE3NDg5ODAyNDIsImlhdCI6MTc0ODk3OTA0MiwianRpIjoiM2NjYjE4YjgtMzUyYS00MDU3LWJkM2EtZWY3NjZlMzI3MTNjIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNDZjZmEyNjctMzMwMy00NDliLTk0YTUtOTBlODY0MzIzYzIyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZXZlbnQtdGlja2V0LXBsYXRmb3JtLWFwcCIsInNlc3Npb25fc3RhdGUiOiI1MDk3NjE5NC1hZWE1LTQwZjgtYjcwYy1lMGJlZGU3OGRjNzQiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiNTA5NzYxOTQtYWVhNS00MGY4LWI3MGMtZTBiZWRlNzhkYzc0IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJQcmF0aGFtZXNoIEJoYW5nYWxlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicHJhdGhhbSIsImdpdmVuX25hbWUiOiJQcmF0aGFtZXNoIiwiZmFtaWx5X25hbWUiOiJCaGFuZ2FsZSIsImVtYWlsIjoiYmhhbmdhbGVwcmF0aGFtZXNoNzQ0QGdtYWlsLmNvbSJ9.LvQ-ssu_HzRFYnW29ICUKm6dy_tLHRgwL7mTsR4_mCz2PPk6c7qxlUEjKH9ElIH1LJS9GI1uYYKhdqHOc3Lfjdulnq2ZA3rS-xSiVrUsk9-bpsfkHUReFMZWTUetEksnljYFGtUyafuomnqwattXs4RSJKyJvBqVmtXBd-ROG7FjL6vFCRxTZj-Dw-bGj1gQcCa_coqkazLHFRt9a3nmOrEPj_myohbhzsOUOWKyLf07NhbadCXxY_OugnLUZlthyfhjYgJnxx_TFl2MLNvvOgGvrqfojDw6YyDoMDb-l56xwCi-MJm13j55yBbZszWZCq3JkAkvtI6KppsNmwQ7Hg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{BASE}}/api/v1/events/aa33a109-0972-4648-8e34-797a7f35e687",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"events",
+						"aa33a109-0972-4648-8e34-797a7f35e687"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete evemt",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJTVXVRaUp0TExOTzRiZG9zLXRfS2o3OGxRb2tHbDFiRVh2ajh6QUUzeGpVIn0.eyJleHAiOjE3NDkwMjE4NzcsImlhdCI6MTc0OTAyMDY3NywianRpIjoiODg3ODkwMDktNzNlZC00OTBiLTlhM2YtYzg0ODA1MGIxODI4IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNDZjZmEyNjctMzMwMy00NDliLTk0YTUtOTBlODY0MzIzYzIyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZXZlbnQtdGlja2V0LXBsYXRmb3JtLWFwcCIsInNlc3Npb25fc3RhdGUiOiI0MmFlM2I5ZC1kYzE2LTQ5MWQtOTc1ZS0wMTUzMDQ3ZjZkZTciLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiNDJhZTNiOWQtZGMxNi00OTFkLTk3NWUtMDE1MzA0N2Y2ZGU3IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJQcmF0aGFtZXNoIEJoYW5nYWxlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicHJhdGhhbSIsImdpdmVuX25hbWUiOiJQcmF0aGFtZXNoIiwiZmFtaWx5X25hbWUiOiJCaGFuZ2FsZSIsImVtYWlsIjoiYmhhbmdhbGVwcmF0aGFtZXNoNzQ0QGdtYWlsLmNvbSJ9.IdjS2CGI4JOtCzqij2_uw2bK92y2EoHJ4JnkVXsigl28us7zHhK0fj4-5gF9zLoaNEbYPuXt6x857ROo2WyLda8xQfNkbTalvsCABuikJAn4eAdHZ7KKijpVbvztAxrWfaxuh1FjzYXX8rrjQ8Tr9CftbSIpPen2i4OV07043zh4NLHBq2-TGSYZR_j_I_Ya2kcwTsbs3ClCgnf93m2mT4u6F7YBCY16uMM_WGuR5r5gWDZNkhViG8qZ7u0gZec7j8FR1Evp2whpGT8OLg0wWyGP8F6xeC4hooEO_mvX-Z5rb2_wLgdsiXrNt_hroqIRkTW7b_78CQUcsXOrNQtyKA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{BASE}}/api/v1/events/aa33a109-0972-4648-8e34-797a7f35e687",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"events",
+						"aa33a109-0972-4648-8e34-797a7f35e687"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "delete evemt",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE}}/api/v1/events/aa33a109-0972-4648-8e34-797a7f35e687",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"events",
+								"aa33a109-0972-4648-8e34-797a7f35e687"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 04 Jun 2025 07:05:07 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "get published events",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJTVXVRaUp0TExOTzRiZG9zLXRfS2o3OGxRb2tHbDFiRVh2ajh6QUUzeGpVIn0.eyJleHAiOjE3NDk2OTc2MTMsImlhdCI6MTc0OTY5NjQxMywianRpIjoiNjlmYTBkNGUtYmI3NS00MTBlLWEzYTEtOTk4N2ZlODM4N2QxIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNDZjZmEyNjctMzMwMy00NDliLTk0YTUtOTBlODY0MzIzYzIyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZXZlbnQtdGlja2V0LXBsYXRmb3JtLWFwcCIsInNlc3Npb25fc3RhdGUiOiIxMzdmZGJkOS0yYzM3LTRkZDItOTAzMC04OTE0ZjNiYjRjNWYiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiMTM3ZmRiZDktMmMzNy00ZGQyLTkwMzAtODkxNGYzYmI0YzVmIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJQcmF0aGFtZXNoIEJoYW5nYWxlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicHJhdGhhbSIsImdpdmVuX25hbWUiOiJQcmF0aGFtZXNoIiwiZmFtaWx5X25hbWUiOiJCaGFuZ2FsZSIsImVtYWlsIjoiYmhhbmdhbGVwcmF0aGFtZXNoNzQ0QGdtYWlsLmNvbSJ9.BqS6EbdO_k9rfTIH96EsJprTqINTmNGbWRAeM4ywwek3vLYWRacIXG92afA8k7StZWM2exJRmtwsh-LOqU6ofUvbi1ng_CaALpOWluE85o-iwS2Xtka9NHI7Ax8LtLGY9srWjxDCRX1TcEAdN-6aUexNQEGwpKDsW0gEjBVyZxR6lPvoCcgGAFqrkIlNQCatZEOf4DZ8lgsJNyTyRFdVH6CY3hCYhq2aF8mfAJaOspPTaVLKzmgpJT6RZzfCfFNzolx2OPc_pb6RvTJpXkk4CaBf9Pg2E__UH5o68rhiVhNdxM0U-Krk9IKwszKZzZOLtE7AjeRsUr3YG6KkkH6fYw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "{{BASE}}/api/v1/published-events?q=Conference&page=0&size=2&sort=name,asc",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"published-events"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "Conference"
+						},
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "2"
+						},
+						{
+							"key": "sort",
+							"value": "name,asc"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE}}/api/v1/published-events?q=Conference&page=0&size=2&sort=name,asc",
+							"host": [
+								"{{BASE}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"published-events"
+							],
+							"query": [
+								{
+									"key": "q",
+									"value": "Conference"
+								},
+								{
+									"key": "page",
+									"value": "0"
+								},
+								{
+									"key": "size",
+									"value": "2"
+								},
+								{
+									"key": "sort",
+									"value": "name,asc"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Vary",
+							"value": "Origin"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Method"
+						},
+						{
+							"key": "Vary",
+							"value": "Access-Control-Request-Headers"
+						},
+						{
+							"key": "X-Content-Type-Options",
+							"value": "nosniff"
+						},
+						{
+							"key": "X-XSS-Protection",
+							"value": "0"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, no-store, max-age=0, must-revalidate"
+						},
+						{
+							"key": "Pragma",
+							"value": "no-cache"
+						},
+						{
+							"key": "Expires",
+							"value": "0"
+						},
+						{
+							"key": "X-Frame-Options",
+							"value": "DENY"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 12 Jun 2025 02:52:09 GMT"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=60"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"content\": [\n        {\n            \"id\": \"806588b3-6b94-433d-84e0-754f0ce87c94\",\n            \"name\": \"Tech Conference 2025\",\n            \"start\": \"2025-06-10T09:00:00\",\n            \"end\": \"2025-06-10T17:00:00\",\n            \"venue\": \"International Convention Center, Mumbai\",\n            \"salesStart\": \"2025-05-20T08:00:00\",\n            \"salesEnd\": \"2025-06-09T23:00:00\",\n            \"status\": \"PUBLISHED\",\n            \"ticketTypes\": [\n                {\n                    \"id\": \"805a0c22-b7fb-47d7-850b-da4f05a43a85\",\n                    \"name\": \"General Admission\",\n                    \"price\": 499.99,\n                    \"description\": \"Access to all sessions and lunch\",\n                    \"totalAvailable\": 200,\n                    \"createdAt\": \"2025-05-31T17:45:20.815734\",\n                    \"updatedAt\": \"2025-05-31T17:45:20.815734\"\n                },\n                {\n                    \"id\": \"ad763c2e-b7ed-4c95-ad1f-6c195667f33e\",\n                    \"name\": \"VIP Pass\",\n                    \"price\": 1299.99,\n                    \"description\": \"Includes front row seating, backstage access, and swag bag\",\n                    \"totalAvailable\": 50,\n                    \"createdAt\": \"2025-05-31T17:45:20.824751\",\n                    \"updatedAt\": \"2025-05-31T17:45:20.824751\"\n                }\n            ],\n            \"createdAt\": \"2025-05-31T17:45:20.72872\",\n            \"updatedAt\": \"2025-05-31T17:45:20.72872\"\n        },\n        {\n            \"id\": \"990ff2af-107c-4d60-871a-b2e58121c056\",\n            \"name\": \"Tech Conference 2025\",\n            \"start\": \"2025-06-10T09:00:00\",\n            \"end\": \"2025-06-10T17:00:00\",\n            \"venue\": \"International Convention Center, Mumbai\",\n            \"salesStart\": \"2025-05-20T08:00:00\",\n            \"salesEnd\": \"2025-06-09T23:00:00\",\n            \"status\": \"PUBLISHED\",\n            \"ticketTypes\": [\n                {\n                    \"id\": \"76f84176-ef3f-4f8f-bf05-4f64e6ebf044\",\n                    \"name\": \"diamond pass\",\n                    \"price\": 1500.99,\n                    \"description\": \"Includes  *\",\n                    \"totalAvailable\": 9,\n                    \"createdAt\": \"2025-06-04T01:30:04.678761\",\n                    \"updatedAt\": \"2025-06-04T01:30:04.678761\"\n                }\n            ],\n            \"createdAt\": \"2025-06-02T00:12:43.217234\",\n            \"updatedAt\": \"2025-06-04T01:30:04.713305\"\n        }\n    ],\n    \"pageable\": {\n        \"pageNumber\": 0,\n        \"pageSize\": 2,\n        \"sort\": {\n            \"empty\": false,\n            \"sorted\": true,\n            \"unsorted\": false\n        },\n        \"offset\": 0,\n        \"paged\": true,\n        \"unpaged\": false\n    },\n    \"last\": true,\n    \"totalPages\": 1,\n    \"totalElements\": 2,\n    \"size\": 2,\n    \"number\": 0,\n    \"sort\": {\n        \"empty\": false,\n        \"sorted\": true,\n        \"unsorted\": false\n    },\n    \"first\": true,\n    \"numberOfElements\": 2,\n    \"empty\": false\n}"
+				}
+			]
+		},
+		{
+			"name": "purches ticket",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJTVXVRaUp0TExOTzRiZG9zLXRfS2o3OGxRb2tHbDFiRVh2ajh6QUUzeGpVIn0.eyJleHAiOjE3NTkzOTQ5NjAsImlhdCI6MTc1OTM5Mzc2MCwianRpIjoiOGRlNzE4N2UtMWQ5NS00MzIwLTgxZjItYWU4MGZjODFmMzI2IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNDZjZmEyNjctMzMwMy00NDliLTk0YTUtOTBlODY0MzIzYzIyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZXZlbnQtdGlja2V0LXBsYXRmb3JtLWFwcCIsInNlc3Npb25fc3RhdGUiOiIyYmM0ZGM4YS1hYmI4LTQ5YmMtODI4ZS01Y2UxZGNlMDA2YTEiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiMmJjNGRjOGEtYWJiOC00OWJjLTgyOGUtNWNlMWRjZTAwNmExIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJQcmF0aGFtZXNoIEJoYW5nYWxlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicHJhdGhhbSIsImdpdmVuX25hbWUiOiJQcmF0aGFtZXNoIiwiZmFtaWx5X25hbWUiOiJCaGFuZ2FsZSIsImVtYWlsIjoiYmhhbmdhbGVwcmF0aGFtZXNoNzQ0QGdtYWlsLmNvbSJ9.lym46zwHgRB0cuxFoTCnwN-b-WOraJqmgSlUGumSdQqc0VYPrPyXLPSpBhljB24ABAgxpW5THd7jdMAqCCUY6Vd__uz4Q2jvJykupFXv1tj2vJijU3MfHlrBO8CZb-AJjnE1xqB-cIW2bBHQ5Tvg9_jFBxfQxBza31dZakL_sgA6vg4KkGY7aoFYkl99Sg2RLKn-HlkA5h9GuGfPdV5jMOVVaAO12_zuDF_KAJH4Cuk0ZLzNLEkFuiJnQFob9cyoqDz-yHj6giliveltQSi8-Z9e5ysbndB2GsDsVqt9ycsg6OcXL4llw7hXVq1DPe4-UWD9Rxvp4IMgBFe1XY15bQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE}}/api/v1/events/806588b3-6b94-433d-84e0-754f0ce87c94/ticket-types/805a0c22-b7fb-47d7-850b-da4f05a43a85/tickets",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"events",
+						"806588b3-6b94-433d-84e0-754f0ce87c94",
+						"ticket-types",
+						"805a0c22-b7fb-47d7-850b-da4f05a43a85",
+						"tickets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list user tickets",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJTVXVRaUp0TExOTzRiZG9zLXRfS2o3OGxRb2tHbDFiRVh2ajh6QUUzeGpVIn0.eyJleHAiOjE3NTkzOTQ5NjAsImlhdCI6MTc1OTM5Mzc2MCwianRpIjoiOGRlNzE4N2UtMWQ5NS00MzIwLTgxZjItYWU4MGZjODFmMzI2IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNDZjZmEyNjctMzMwMy00NDliLTk0YTUtOTBlODY0MzIzYzIyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZXZlbnQtdGlja2V0LXBsYXRmb3JtLWFwcCIsInNlc3Npb25fc3RhdGUiOiIyYmM0ZGM4YS1hYmI4LTQ5YmMtODI4ZS01Y2UxZGNlMDA2YTEiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiMmJjNGRjOGEtYWJiOC00OWJjLTgyOGUtNWNlMWRjZTAwNmExIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJQcmF0aGFtZXNoIEJoYW5nYWxlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicHJhdGhhbSIsImdpdmVuX25hbWUiOiJQcmF0aGFtZXNoIiwiZmFtaWx5X25hbWUiOiJCaGFuZ2FsZSIsImVtYWlsIjoiYmhhbmdhbGVwcmF0aGFtZXNoNzQ0QGdtYWlsLmNvbSJ9.lym46zwHgRB0cuxFoTCnwN-b-WOraJqmgSlUGumSdQqc0VYPrPyXLPSpBhljB24ABAgxpW5THd7jdMAqCCUY6Vd__uz4Q2jvJykupFXv1tj2vJijU3MfHlrBO8CZb-AJjnE1xqB-cIW2bBHQ5Tvg9_jFBxfQxBza31dZakL_sgA6vg4KkGY7aoFYkl99Sg2RLKn-HlkA5h9GuGfPdV5jMOVVaAO12_zuDF_KAJH4Cuk0ZLzNLEkFuiJnQFob9cyoqDz-yHj6giliveltQSi8-Z9e5ysbndB2GsDsVqt9ycsg6OcXL4llw7hXVq1DPe4-UWD9Rxvp4IMgBFe1XY15bQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE}}/api/v1/tickets",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"tickets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get qr code of ticket",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJTVXVRaUp0TExOTzRiZG9zLXRfS2o3OGxRb2tHbDFiRVh2ajh6QUUzeGpVIn0.eyJleHAiOjE3NTkzOTQ5NjAsImlhdCI6MTc1OTM5Mzc2MCwianRpIjoiOGRlNzE4N2UtMWQ5NS00MzIwLTgxZjItYWU4MGZjODFmMzI2IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNDZjZmEyNjctMzMwMy00NDliLTk0YTUtOTBlODY0MzIzYzIyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZXZlbnQtdGlja2V0LXBsYXRmb3JtLWFwcCIsInNlc3Npb25fc3RhdGUiOiIyYmM0ZGM4YS1hYmI4LTQ5YmMtODI4ZS01Y2UxZGNlMDA2YTEiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiMmJjNGRjOGEtYWJiOC00OWJjLTgyOGUtNWNlMWRjZTAwNmExIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJQcmF0aGFtZXNoIEJoYW5nYWxlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicHJhdGhhbSIsImdpdmVuX25hbWUiOiJQcmF0aGFtZXNoIiwiZmFtaWx5X25hbWUiOiJCaGFuZ2FsZSIsImVtYWlsIjoiYmhhbmdhbGVwcmF0aGFtZXNoNzQ0QGdtYWlsLmNvbSJ9.lym46zwHgRB0cuxFoTCnwN-b-WOraJqmgSlUGumSdQqc0VYPrPyXLPSpBhljB24ABAgxpW5THd7jdMAqCCUY6Vd__uz4Q2jvJykupFXv1tj2vJijU3MfHlrBO8CZb-AJjnE1xqB-cIW2bBHQ5Tvg9_jFBxfQxBza31dZakL_sgA6vg4KkGY7aoFYkl99Sg2RLKn-HlkA5h9GuGfPdV5jMOVVaAO12_zuDF_KAJH4Cuk0ZLzNLEkFuiJnQFob9cyoqDz-yHj6giliveltQSi8-Z9e5ysbndB2GsDsVqt9ycsg6OcXL4llw7hXVq1DPe4-UWD9Rxvp4IMgBFe1XY15bQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE}}/api/v1/tickets/2a6373fe-cd2c-41c2-8437-13fe6d12f7b8/qr-codes",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"tickets",
+						"2a6373fe-cd2c-41c2-8437-13fe6d12f7b8",
+						"qr-codes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get ticket",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJTVXVRaUp0TExOTzRiZG9zLXRfS2o3OGxRb2tHbDFiRVh2ajh6QUUzeGpVIn0.eyJleHAiOjE3NTkzOTUzMTMsImlhdCI6MTc1OTM5NDExMywianRpIjoiZDU0NjUyNTQtYjgwNS00NjY4LTkzMGEtMDMyZjQ1NTk1NmFkIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNDZjZmEyNjctMzMwMy00NDliLTk0YTUtOTBlODY0MzIzYzIyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZXZlbnQtdGlja2V0LXBsYXRmb3JtLWFwcCIsInNlc3Npb25fc3RhdGUiOiI2MDMwMDVmNy05N2M2LTRjY2MtYTIzYi1lMzVlZDU5ZGZhOWYiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiNjAzMDA1ZjctOTdjNi00Y2NjLWEyM2ItZTM1ZWQ1OWRmYTlmIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJQcmF0aGFtZXNoIEJoYW5nYWxlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicHJhdGhhbSIsImdpdmVuX25hbWUiOiJQcmF0aGFtZXNoIiwiZmFtaWx5X25hbWUiOiJCaGFuZ2FsZSIsImVtYWlsIjoiYmhhbmdhbGVwcmF0aGFtZXNoNzQ0QGdtYWlsLmNvbSJ9.U_UIl-Hy71jUXETzmmyieEKxf5WXpWiVo70cVn6C0ZHo01OTyVcMrBN_JWmrOZPRJo0qce3Bb2SZiwnP4d-syUQRHdO11VImmZec3AQsz_4qokqiMVZNzZXaHPioxOHYsSCjs9VUpEtf4dIxj-cG0gYyM2ySx3DCGutdsMeZ2UBBsqWFuFC8aqYcYiOGgWIsWKR5Sl-6rxv9IPegzS53v94Ls_9bDfuEetDpIcBcPiISTXjePXBnPZvLJdT_10eJhmbxq6spUedV8IOG7JIFrrq4aV3nILYNZZGoizhmF0gKq7pznBdKru54omPd-Gn3H2ZwseBRTyPssU3zt4aBDw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE}}/api/v1/tickets/2a6373fe-cd2c-41c2-8437-13fe6d12f7b8",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"tickets",
+						"2a6373fe-cd2c-41c2-8437-13fe6d12f7b8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get qr- byte[] for front-end",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJTVXVRaUp0TExOTzRiZG9zLXRfS2o3OGxRb2tHbDFiRVh2ajh6QUUzeGpVIn0.eyJleHAiOjE3NTkzOTQ5NjAsImlhdCI6MTc1OTM5Mzc2MCwianRpIjoiOGRlNzE4N2UtMWQ5NS00MzIwLTgxZjItYWU4MGZjODFmMzI2IiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJhdWQiOiJhY2NvdW50Iiwic3ViIjoiNDZjZmEyNjctMzMwMy00NDliLTk0YTUtOTBlODY0MzIzYzIyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiZXZlbnQtdGlja2V0LXBsYXRmb3JtLWFwcCIsInNlc3Npb25fc3RhdGUiOiIyYmM0ZGM4YS1hYmI4LTQ5YmMtODI4ZS01Y2UxZGNlMDA2YTEiLCJhY3IiOiIxIiwiYWxsb3dlZC1vcmlnaW5zIjpbImh0dHA6Ly9sb2NhbGhvc3Q6NTE3MyJdLCJyZWFsbV9hY2Nlc3MiOnsicm9sZXMiOlsiZGVmYXVsdC1yb2xlcy1ldmVudC10aWNrZXQtcGxhdGZvcm0iLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJlbWFpbCBwcm9maWxlIiwic2lkIjoiMmJjNGRjOGEtYWJiOC00OWJjLTgyOGUtNWNlMWRjZTAwNmExIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJQcmF0aGFtZXNoIEJoYW5nYWxlIiwicHJlZmVycmVkX3VzZXJuYW1lIjoicHJhdGhhbSIsImdpdmVuX25hbWUiOiJQcmF0aGFtZXNoIiwiZmFtaWx5X25hbWUiOiJCaGFuZ2FsZSIsImVtYWlsIjoiYmhhbmdhbGVwcmF0aGFtZXNoNzQ0QGdtYWlsLmNvbSJ9.lym46zwHgRB0cuxFoTCnwN-b-WOraJqmgSlUGumSdQqc0VYPrPyXLPSpBhljB24ABAgxpW5THd7jdMAqCCUY6Vd__uz4Q2jvJykupFXv1tj2vJijU3MfHlrBO8CZb-AJjnE1xqB-cIW2bBHQ5Tvg9_jFBxfQxBza31dZakL_sgA6vg4KkGY7aoFYkl99Sg2RLKn-HlkA5h9GuGfPdV5jMOVVaAO12_zuDF_KAJH4Cuk0ZLzNLEkFuiJnQFob9cyoqDz-yHj6giliveltQSi8-Z9e5ysbndB2GsDsVqt9ycsg6OcXL4llw7hXVq1DPe4-UWD9Rxvp4IMgBFe1XY15bQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE}}/api/v1/tickets/2a6373fe-cd2c-41c2-8437-13fe6d12f7b8/qr-codes/base64",
+					"host": [
+						"{{BASE}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"tickets",
+						"2a6373fe-cd2c-41c2-8437-13fe6d12f7b8",
+						"qr-codes",
+						"base64"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "validate ticket",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE",
+			"value": "http://localhost:8082",
+			"type": "default"
+		}
+	]
+}
