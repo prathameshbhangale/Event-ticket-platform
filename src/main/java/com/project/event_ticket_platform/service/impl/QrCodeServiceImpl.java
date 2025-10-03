@@ -32,73 +32,70 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class QrCodeServiceImpl implements QrCodeService {
 
+    private static final int QR_WIDTH = 200;
+    private static final int QR_HEIGHT = 200;
+
     private final QRCodeWriter qrCodeWriter;
     private final QrCodeRepository qrCodeRepository;
 
-    private String generateImage(UUID uniqueId) throws WriterException, IOException
-    {
+    private byte[] generateImage(UUID uniqueId) throws WriterException, IOException {
+        // 1. Encode the UUID into a QR Code bit matrix
         BitMatrix bitMatrix = qrCodeWriter.encode(
                 uniqueId.toString(),
                 BarcodeFormat.QR_CODE,
                 QR_WIDTH,
                 QR_HEIGHT
         );
+
+        // 2. Convert the bit matrix to a BufferedImage
         BufferedImage qrCodeImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
 
-        try(ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+        // 3. Write BufferedImage into a byte[] (PNG format)
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
             ImageIO.write(qrCodeImage, "PNG", baos);
-            byte[] imageBytes = baos.toByteArray();
-
-            return Base64.getEncoder().encodeToString(imageBytes);
+            return baos.toByteArray(); // ✅ actual PNG bytes, safe to store in BYTEA
         }
     }
 
 
     @Override
     public QrCode generateQrCode(Ticket ticket) {
-        try{
+        try {
             UUID uniqueId = UUID.randomUUID();
-            String qrCodeImage = generateImage(uniqueId);
+            byte[] qrCodeImage = generateImage(uniqueId);
 
             QrCode qrCode = new QrCode();
             qrCode.setId(uniqueId);
             qrCode.setStatus(QrCodeStatusEnum.ACTIVE);
-            log.error("Generated QR Code Image (Base64): {}", qrCodeImage); // Log the base64 string
-            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n");
-            qrCode.setValue(qrCodeImage);
+            log.info("Type of qrCodeImage: {}", qrCodeImage.getClass().getName());
+            log.info("Length of qrCodeImage: {}", qrCodeImage.length);
+//            System.out.println("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+            qrCode.setValue( qrCodeImage);
             qrCode.setTicket(ticket);
 
-            QrCode q= qrCodeRepository.saveAndFlush(qrCode);
-            return q;
-        }catch (IOException | WriterException ex){
-            throw new QrCodeGenerationException("Unabble to create QR CODE ",ex);
-        }
+            log.info("Generated QR Code (Base64): {}", Base64.getEncoder().encodeToString(qrCodeImage));
 
+            return qrCodeRepository.saveAndFlush(qrCode);
+        } catch (IOException | WriterException ex) {
+            throw new QrCodeGenerationException("Unable to create QR Code", ex);
+        }
     }
+
 
     @Override
     public byte[] getQrCodeImageForUserAndTicket(UUID userId, UUID ticketId) {
         QrCode qrCode = qrCodeRepository.findByTicketIdAndTicketPurchaserId(ticketId, userId)
                 .orElseThrow(QrCodeNotFoundException::new);
 
-        try {
-            return Base64.getDecoder().decode(qrCode.getValue());
-        } catch(Exception ex) {
-            log.error("Invalid base64 QR Code for ticket ID: {}", ticketId, ex);
-            throw new QrCodeNotFoundException();
-        }
+        return qrCode.getValue();
     }
 
     @Override
-    public String getQrCodeBase64( UUID userId, UUID ticketId) {
+    public String getQrCodeBase64(UUID userId, UUID ticketId) {
         QrCode qrCode = qrCodeRepository.findByTicketIdAndTicketPurchaserId(ticketId, userId)
                 .orElseThrow(QrCodeNotFoundException::new);
-        try {
-            return qrCode.getValue();
-        } catch(Exception ex) {
-            log.error("Invalid base64 QR Code for ticket ID: {}", ticketId, ex);
-            throw new QrCodeNotFoundException();
-        }
+
+        return Base64.getEncoder().encodeToString(qrCode.getValue());
     }
 
 }

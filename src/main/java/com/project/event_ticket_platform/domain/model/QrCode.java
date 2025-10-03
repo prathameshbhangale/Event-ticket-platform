@@ -3,9 +3,12 @@ package com.project.event_ticket_platform.domain.model;
 import com.project.event_ticket_platform.domain.enums.QrCodeStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.sql.Types;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -28,10 +31,19 @@ public class QrCode {
     private QrCodeStatusEnum status;
 
 //    @Lob
+    @JdbcTypeCode(Types.BINARY)
+    @Column(name = "value", columnDefinition = "BYTEA", nullable = false)
+    private byte[] value;
+
+//    public void setValue(byte[] value) {
+//        this.value = value;
+//    }
+
+
+//    @Lob
 //    @Column(name = "value", columnDefinition = "TEXT", nullable = false)
 //    private String value;
-@Column(name = "value", length = 1000, nullable = false)
-private String value;
+
 
     @CreatedDate
     @Column(name = "created_at")
@@ -44,9 +56,6 @@ private String value;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ticket_id")
     private Ticket ticket;
-
-//    public String getValue() { return value; }
-//    public void setValue(String value) { this.value = value; }
 
 
     @Override

@@ -11,8 +11,7 @@ import java.util.UUID;
 
 @Service
 public interface QrCodeService {
-    int QR_HEIGHT = 300;
-    int QR_WIDTH = 300;
+
 
     QrCode generateQrCode(Ticket ticket);
 

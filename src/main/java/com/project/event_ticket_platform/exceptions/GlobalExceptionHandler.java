@@ -13,6 +13,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @Slf4j
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(QrCodeNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleQrCodeNotFoundException(QrCodeNotFoundException ex) {
+        log.error("Caught QrCodeNotFoundException", ex);
+        ErrorDto errorDto = new ErrorDto();
+        errorDto.setError("Event not found");
+        return new ResponseEntity<>(errorDto, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(EventNotFoundException.class)
     public ResponseEntity<ErrorDto> handleEventNotFoundException(EventNotFoundException ex) {
         log.error("Caught EventNotFoundException", ex);
@@ -22,7 +30,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(TicketTypeNotFoundException.class)
-    public ResponseEntity<ErrorDto> handleEventNotFoundException(TicketTypeNotFoundException ex) {
+    public ResponseEntity<ErrorDto> handleTicketTypeNotFoundException(TicketTypeNotFoundException ex) {
         log.error("Caught TicketTypeNotFoundException", ex);
         ErrorDto errorDto = new ErrorDto();
         errorDto.setError("Ticket type not found");
@@ -30,7 +38,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(TicketsSoldOutException.class)
-    public ResponseEntity<ErrorDto> handleEventUpdateException(TicketsSoldOutException ex) {
+    public ResponseEntity<ErrorDto> handleTicketsSoldOutException(TicketsSoldOutException ex) {
         log.error("Caught TicketsSoldOutException", ex);
         ErrorDto errorDto = new ErrorDto();
         errorDto.setError("All tickets are sold out");
