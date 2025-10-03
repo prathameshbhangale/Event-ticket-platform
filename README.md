@@ -1,6 +1,6 @@
 # 🎟️ Event Ticket Platform
 
-A Spring Boot based microservice-style application for **event creation, publishing, ticket management, and purchasing** with **Keycloak authentication**.
+A Spring Boot based application for **event creation, publishing, ticket management, and purchasing** with **Keycloak authentication**.
 
 ---
 
@@ -9,7 +9,7 @@ A Spring Boot based microservice-style application for **event creation, publish
 - **Authentication & Authorization** with Keycloak (OAuth2 / JWT).
 - **Event Management**:
   - Create, update, delete events
-  - Add multiple ticket types
+  - Add multiple ticket types ( integrate QR codes )
   - Draft vs Published status
 - **Ticketing System**:
   - Purchase tickets
